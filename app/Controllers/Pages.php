@@ -2,13 +2,22 @@
 
 namespace App\Controllers;
 
+use App\Models\ProductModel;
 use CodeIgniter\Controller;
 
-class Pages extends Controller
+class Pages extends BaseController
 {
+    protected $productModel;
+
+    public function __construct()
+    {
+        $this->productModel = new ProductModel();
+    }
+
     public function index()
     {
-        return view('pages/home');
+        $data['products'] = $this->productModel->getProducts();
+        return view('pages/home', $data);
     }
 
     public function about()
